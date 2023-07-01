@@ -1,26 +1,31 @@
 import express from "express";
+import db from "./config/dbConnect.js";
+import livros from "./models/livro.js";
+
+db.on("error", console.log.bind(console, 'Erro de conexão com o Banco de Dados'))
+db.once("open", () => {
+    console.log('Conexão com o Banco de Dados feita com sucesso!')
+})
 
 const app = express();
 app.use(express.json());
 
-const livros = [
-    {
-        id: 1,
-        "titulo": "Senhor dos Aneis"
-    },
-    { 
-        id: 2,
-        "titulo": "O Hobbit"
-    }
-]
 
 app.get('', (req, res) => {
     res.status(200).send('Curso de NodeJS');
 })
 
-app.get('/livros', (req, res) => {
-    res.status(200).json(livros)
-})
+
+app.get('/livros', async (req, res) => {
+    try {
+      const resultado = await livros.find();
+      res.status(200).json(resultado);
+    } catch (error) {
+      console.error('Erro ao obter os livros:', error);
+      res.status(500).json({ error: 'Erro ao obter os livros' });
+    }
+});
+
 
 app.get('/livros/:id', (req, res) => {
     let index = buscaLivro(req.params.id);

@@ -6,7 +6,8 @@ Esse repositório contém um projeto desenvolvido em JavaScript utilizando o Nod
 
 NodeJS - v18.16.0
 Express - v4.18.2
-Nodemon - 2.0.22
+Nodemon - v2.0.22
+Mongoose - v7.3.1
 
 ## Documentação
 
