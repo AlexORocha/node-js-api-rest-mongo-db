@@ -1,0 +1,16 @@
+{
+  "name": "js-api-rest-mongo-db",
+  "version": "1.0.0",
+  "description": "Meu primeiro projeto em NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
