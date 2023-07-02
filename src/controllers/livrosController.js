@@ -8,7 +8,7 @@ class LivroController{
     // Método de Listar Livro
     static listarLivros = async (req, res) => {
         try {
-            const resultado = await livros.find();
+            const resultado = await livros.find().populate('autor');
             res.status(200).json(resultado);
         } catch (err) {
             res.status(500).json({
@@ -23,7 +23,7 @@ class LivroController{
     static listarLivroEspecifico = async (req, res) => {
         try {
             const id = req.params.id;
-            let livro = await livros.findById(id);
+            let livro = await livros.findById(id).populate('autor', 'nome');
             res.status(200).json(livro);
         } catch (err) {
             res.status(400).json({
@@ -80,6 +80,23 @@ class LivroController{
         } catch (err) {
             res.status(500).json({
                 message: 'Erro ao remover o livro',
+                error: err.message
+            });
+        }
+    }
+
+    // Método para Listar Livros de uma Determinada Editora
+    static listarLivroPelaEditora = async (req, res) => {
+        try{
+            const editora = req.query.editora;
+            let livros_editora = await livros.find({
+                'editora': editora
+            })
+            res.status(200).json(livros_editora);
+        }
+        catch{
+            res.status(500).json({
+                message: 'Erro ao buscar livro da editora',
                 error: err.message
             });
         }
